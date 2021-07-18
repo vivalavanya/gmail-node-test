@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+  redis:
+    image: redis
+    container_name: redis
+    env_file: docker-compose.env
+  app:
+    build:
+      context: .
+    image: gmail-node-app-test
+    container_name: app
+    env_file: docker-compose.env
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+      - redis
